@@ -24,7 +24,8 @@ namespace DB
   */
 class ParserInsertQuery : public IParserBase
 {
-private:
+//private:
+public:
     const char * end;
 
     const char * getName() const override { return "INSERT query"; }

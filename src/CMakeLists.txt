@@ -436,3 +436,35 @@ if (ENABLE_TESTS AND USE_GTEST)
     target_link_libraries(unit_tests_dbms PRIVATE ${GTEST_BOTH_LIBRARIES} clickhouse_functions clickhouse_aggregate_functions clickhouse_parsers dbms clickhouse_common_zookeeper string_utils)
     add_check(unit_tests_dbms)
 endif ()
+
+
+add_executable(test_parser ../src/Parsers/tests/test_parser.cpp)
+target_link_libraries(test_parser  PRIVATE ${GTEST_BOTH_LIBRARIES} clickhouse_functions clickhouse_aggregate_functions clickhouse_parsers dbms clickhouse_common_zookeeper string_utils)
+
+
+add_executable(test_lexer ../src/Parsers/tests/lexer.cpp)
+target_link_libraries(test_lexer PRIVATE ${GTEST_BOTH_LIBRARIES} clickhouse_functions clickhouse_aggregate_functions clickhouse_parsers dbms clickhouse_common_zookeeper string_utils)
+
+add_executable(test_Field ../src/Core/tests/test_Field.cpp)
+target_link_libraries(test_Field PRIVATE ${GTEST_BOTH_LIBRARIES} clickhouse_functions clickhouse_aggregate_functions clickhouse_parsers dbms clickhouse_common_zookeeper string_utils)
+
+list(APPEND graph_parser_source
+	Parsers/ClickGraph/ParserCypherMapList.cpp
+	Parsers/ClickGraph/ParserCypherAliasAndLabel.cpp
+	Parsers/ClickGraph/ParserCypherEntity.cpp
+	)
+
+
+add_executable(test_CypherParser ../src/Parsers/ClickGraph/tests/test_CypherParser ${graph_parser_source})
+target_link_libraries(test_CypherParser PRIVATE ${GTEST_BOTH_LIBRARIES} clickhouse_functions clickhouse_aggregate_functions clickhouse_parsers dbms clickhouse_common_zookeeper string_utils)
+
+
+add_executable(test_insert ../src/Parsers/tests/test_insert.cpp)
+target_link_libraries(test_insert PRIVATE ${GTEST_BOTH_LIBRARIES} clickhouse_functions clickhouse_aggregate_functions clickhouse_parsers dbms clickhouse_common_zookeeper string_utils)
+
+
+add_executable(test_Block ../src/ClickGraph/tests/test_Block.cpp)
+target_link_libraries(test_Block PRIVATE ${GTEST_BOTH_LIBRARIES} clickhouse_functions clickhouse_aggregate_functions clickhouse_parsers dbms clickhouse_common_zookeeper string_utils)
+
+add_executable(test_BlockOutputStream ../src/ClickGraph/tests/test_BlockOutputStream.cpp)
+target_link_libraries(test_BlockOutputStream PRIVATE ${GTEST_BOTH_LIBRARIES} clickhouse_functions clickhouse_aggregate_functions clickhouse_parsers dbms clickhouse_common_zookeeper string_utils)
